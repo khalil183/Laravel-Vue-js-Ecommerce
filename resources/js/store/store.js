@@ -7,25 +7,29 @@ Vue.use(Vuex)
 const store=new Vuex.Store({
     state:{
         categories:[],
-        posts:[],
+        products:[],
         brands:[],
         count:20
     },
     getters:{
-        getCategory(state){
+        getCategories(state){
             return state.categories;
         },
-         getBrand(state){
+         getBrands(state){
             return state.brands;
         },
+        getProducts(state){
+            return state.products;
+        },
+
 
 
     },
     actions:{
-        loadCategory(context){
+        loadCategories(context){
             axios.get('/api/category/')
                 .then(response=>{
-                    context.commit('loadCategory',response.data)
+                    context.commit('loadCategories',response.data)
 
                 })
                 .catch(err=>{
@@ -34,10 +38,10 @@ const store=new Vuex.Store({
                 })
         },
 
-        loadBrand(context){
+        loadBrands(context){
             axios.get('/api/brand/')
                 .then(response=>{
-                    context.commit('loadBrand',response.data)
+                    context.commit('loadBrands',response.data)
 
                 })
                 .catch(err=>{
@@ -45,15 +49,31 @@ const store=new Vuex.Store({
 
                 })
         },
+        loadProducts(context){
+            axios.get('/api/product/')
+                .then(response=>{
+                    context.commit('loadProducts',response.data)
+
+                })
+                .catch(err=>{
+                    console.log(err);
+
+                })
+        },
+
 
     },
     mutations:{
-        loadCategory(state,payload){
+        loadCategories(state,payload){
             state.categories=payload;
         },
-        loadBrand(state,payload){
+        loadBrands(state,payload){
             state.brands=payload;
         },
+        loadProducts(state,payload){
+            state.products=payload;
+        },
+
 
     }
 })

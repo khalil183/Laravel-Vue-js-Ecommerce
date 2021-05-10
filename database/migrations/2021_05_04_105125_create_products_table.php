@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('code');
-            $table->string('image');
+            $table->string('images');
             $table->integer('qty');
             $table->integer('brand_id');
             $table->integer('category_id');

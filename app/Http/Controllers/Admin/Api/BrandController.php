@@ -133,7 +133,9 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
+        $brand=Brand::find($id);
+        Brand::destroy($id);
+        unlink($brand->logo);
         return response()->json(['success'=>'Deleted Successfully']);
     }
 }

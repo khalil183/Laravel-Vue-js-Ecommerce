@@ -64,9 +64,9 @@ export default {
         addBrand(){
             this.form.post('/api/brand')
                 .then(response=>{
-                    // toastr.success(response.data.success)
-                    // this.$router.push('/category')
-                    console.log(response);
+                    toastr.success(response.data.success)
+                    this.$router.push('/category')
+
 
 
                 })

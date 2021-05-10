@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(category,i) in getCategory" :key="i">
+                            <tr v-for="(category,i) in getCategories" :key="i">
                                 <td>{{ ++i }}</td>
                                 <td>{{ category.name }}</td>
                                 <td>{{ category.slug }}</td>
@@ -55,11 +55,21 @@ export default {
         }
     },
     methods:{
-        loadCategory(){
-            this.$store.dispatch('loadCategory');
+        loadCategories(){
+            this.$store.dispatch('loadCategories');
         },
         deleteCategory(id){
-            axios.delete('/api/category/'+id)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   axios.delete('/api/category/'+id)
                 .then(res=>{
                     console.log(res);
                     this.loadCategory()
@@ -69,6 +79,9 @@ export default {
                     console.log(err);
 
                 })
+
+                }
+            })
         },
         statusView(status){
             let data={0:'In-active',1:'Active'};
@@ -82,11 +95,11 @@ export default {
 
     },
     mounted(){
-        this.loadCategory();
+        this.loadCategories();
     },
     computed:{
-        getCategory(){
-            return this.$store.getters.getCategory;
+        getCategories(){
+            return this.$store.getters.getCategories;
         }
     }
 }

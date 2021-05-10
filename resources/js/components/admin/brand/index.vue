@@ -22,14 +22,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(brand,i) in getBrand" :key="i">
+                            <tr v-for="(brand,i) in getBrands" :key="i">
                                 <td>{{ ++i }}</td>
                                 <td>{{ brand.name }}</td>
                                 <td>{{ brand.slug }}</td>
                                 <td><img :src="brand.logo" alt="" width="60px"></td>
                                 <td><button class="btn btn-sm" :class="statusColor(brand.status)">{{ statusView(brand.status) }}</button></td>
                                 <td>
-                                    <button @click="deleteCategory(brand.id)" class="btn btn-danger btn-sm">Delete</button>
+                                    <button @click="deleteBrand(brand.id)" class="btn btn-danger btn-sm">Delete</button>
                                     <router-link :to="`brand-edit/${brand.id}`" class="btn btn-primary btn-sm">Edit</router-link>
                                 </td>
 
@@ -57,20 +57,33 @@ export default {
         }
     },
     methods:{
-        loadBrand(){
-            this.$store.dispatch('loadBrand');
+        loadBrands(){
+            this.$store.dispatch('loadBrands');
         },
-        deleteCategory(id){
-            axios.delete('/api/category/'+id)
+        deleteBrand(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   axios.delete('/api/brand/'+id)
                 .then(res=>{
                     console.log(res);
-                    this.loadCategory()
+                    this.loadBrands()
 
                 })
                 .catch(err=>{
                     console.log(err);
 
                 })
+
+                }
+            })
         },
         statusView(status){
             let data={0:'In-active',1:'Active'};
@@ -84,11 +97,11 @@ export default {
 
     },
     mounted(){
-        this.loadBrand();
+        this.loadBrands();
     },
     computed:{
-        getBrand(){
-            return this.$store.getters.getBrand;
+        getBrands(){
+            return this.$store.getters.getBrands;
         }
     }
 }

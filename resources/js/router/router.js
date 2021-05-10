@@ -14,8 +14,8 @@ import createBrand from '../components/admin/brand/create'
 import editBrand from '../components/admin/brand/edit'
 
 import Product from '../components/admin/product/index'
-// import createPost from '../components/admin/blog/create'
-// import editPost from '../components/admin/blog/edit'
+import createProduct from '../components/admin/product/create'
+import editProduct from '../components/admin/product/edit'
 
 
 
@@ -27,11 +27,15 @@ const routes=[
     { path:'/category-create',component: createCategory },
     { path:'/category-edit/:id',component: editCategory },
 
+    // brand route
     { path:'/brand',component:Brand },
     { path:'/brand-create',component: createBrand },
     { path:'/brand-edit/:id',component: editBrand },
 
+    // product route
     { path:'/product',component:Product },
+    { path:'/product-create',component: createProduct },
+    { path:'/product-edit/:id',component: editProduct },
 
 
     // any route
