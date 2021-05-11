@@ -18,9 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::all();
-        // $data=["uploads\/product\/2021-05-09-May-39-11-0.jpeg","uploads\/product\/2021-05-09-May-40-11-1.jpeg","uploads\/product\/2021-05-09-May-40-11-2.jpeg"];
-        // return json_decode($products->image);
+        $products=Product::with('category','brand')->get();
         return response()->json($products);
     }
 

@@ -2067,7 +2067,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post('/api/brand').then(function (response) {
         toastr.success(response.data.success);
 
-        _this.$router.push('/category');
+        _this.$router.push('/brand');
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2939,15 +2939,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateProduct: function updateProduct() {
+      var _this = this;
+
       this.form.put('/api/product/' + this.$route.params.id).then(function (response) {
-        console.log(response); // toastr.success(response.data.success)
-        // this.$router.push('/product')
+        toastr.success(response.data.success);
+
+        _this.$router.push('/product');
       })["catch"](function (err) {
         console.log(err);
       });
     },
     loadImage: function loadImage(event) {
-      var _this = this;
+      var _this2 = this;
 
       this.form.newImages = [];
 
@@ -2956,7 +2959,7 @@ __webpack_require__.r(__webpack_exports__);
         var reader = new FileReader();
 
         reader.onload = function (evnt) {
-          _this.form.newImages.push(evnt.target.result);
+          _this2.form.newImages.push(evnt.target.result);
         };
 
         reader.readAsDataURL(file);
@@ -2969,10 +2972,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('loadBrands');
     },
     loadProduct: function loadProduct() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('/api/product/' + this.$route.params.id).then(function (response) {
-        _this2.form.fill(response.data);
+        _this3.form.fill(response.data);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -3004,6 +3007,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3098,6 +3108,10 @@ __webpack_require__.r(__webpack_exports__);
         1: 'btn-success'
       };
       return data[status];
+    },
+    showImage: function showImage(images) {
+      var image = JSON.parse(images);
+      return image[0];
     }
   },
   mounted: function mounted() {
@@ -45579,9 +45593,23 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.slug))]),
+                    _c("td", [_vm._v(_vm._s(product.code))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.image))]),
+                    _c("td", [_vm._v(_vm._s(product.qty))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(product.selling_price))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(product.category.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(product.brand.name))]),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: {
+                        src: _vm.showImage(product.images),
+                        alt: "Product Image",
+                        width: "60px"
+                      }
+                    }),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -45643,7 +45671,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Slug")]),
+        _c("th", [_vm._v("Code")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Selling Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Brand")]),
         _vm._v(" "),
         _c("th", [_vm._v("Image")]),
         _vm._v(" "),

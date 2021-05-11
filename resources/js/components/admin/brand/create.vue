@@ -65,7 +65,7 @@ export default {
             this.form.post('/api/brand')
                 .then(response=>{
                     toastr.success(response.data.success)
-                    this.$router.push('/category')
+                    this.$router.push('/brand')
 
 
 

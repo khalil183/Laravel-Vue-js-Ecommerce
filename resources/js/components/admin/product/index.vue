@@ -15,7 +15,11 @@
                             <tr>
                             <th>SN</th>
                             <th>Name</th>
-                            <th>Slug</th>
+                            <th>Code</th>
+                            <th>Qty</th>
+                            <th>Selling Price</th>
+                            <th>Category</th>
+                            <th>Brand</th>
                             <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -25,9 +29,12 @@
                             <tr v-for="(product,i) in getProducts" :key="i">
                                 <td>{{ ++i }}</td>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.slug }}</td>
-                                <td>{{ product.image }}</td>
-                                <!-- <img :src="product.image[0]" alt="Product Image" width="60px"> -->
+                                <td>{{ product.code }}</td>
+                                <td>{{ product.qty }}</td>
+                                <td>{{ product.selling_price }}</td>
+                                <td>{{ product.category.name }}</td>
+                                <td>{{ product.brand.name }}</td>
+                                <img :src="showImage(product.images)" alt="Product Image" width="60px">
                                 <td><button class="btn btn-sm" :class="statusColor(product.status)">{{ statusView(product.status) }}</button></td>
                                 <td>
                                     <button @click="deleteProduct(product.id)" class="btn btn-danger btn-sm">Delete</button>
@@ -93,6 +100,11 @@ export default {
             let data={0:'btn-danger',1:'btn-success'};
             return data[status];
         },
+        showImage(images){
+            let image=JSON.parse(images)
+            return image[0];
+
+        }
 
 
     },

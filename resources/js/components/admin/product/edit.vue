@@ -130,10 +130,8 @@ export default {
         updateProduct(){
             this.form.put('/api/product/'+this.$route.params.id)
                 .then(response=>{
-                    console.log(response);
-
-                    // toastr.success(response.data.success)
-                    // this.$router.push('/product')
+                    toastr.success(response.data.success)
+                    this.$router.push('/product')
 
                 })
                 .catch(err=>{
